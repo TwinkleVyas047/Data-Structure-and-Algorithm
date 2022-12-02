@@ -1,0 +1,139 @@
+/*
+Topic :	Implementation of Merge Sort
+
+
+AIM: TO PERFORM MERGE SORT
+
+To write and execute Java program to Implementation of Merge Sort
+Pseudocode: 
+procedure mergesort( array,N )
+array – list of elements to be sorted
+N – number of elements in the list
+begin
+if ( N == 1 ) return array
+var array1 as array = a[0] ... a[N/2]
+var array2 as array = a[N/2+1] ... a[N]
+array1 = mergesort(array1)
+array2 = mergesort(array2)
+return merge( array1, array2 )
+end procedure
+procedure merge(array1, array2 )
+    array1 – first array
+    array2 – second array
+begin
+var c as array
+while ( a and b have elements )
+if ( array1[0] > array2[0] )
+             add array2 [0] to the end of c
+            remove array2 [0] from array2
+else
+            add array1 [0] to the end of c
+             remove array1 [0] from array1
+end if
+end while
+while ( a has elements )
+add a[0] to the end of c
+remove a[0] from a
+end while
+while ( b has elements )
+add b[0] to the end of c
+remove b[0] from b
+end while
+return c
+end procedure
+
+
+Explanation:
+●	At first, check if the left index of array is less than the right index, if yes then calculate its mid point
+●	Now, as we already know that merge sort first divides the whole array iteratively into equal halves, unless the atomic values are achieved. 
+●	Here, we see that an array of 7 items is divided into two arrays of size 4 and 3 respectively.
+●	Now, again find that is left index is less than the right index for both arrays, if found yes, then again calculate mid points for both the arrays.
+●	Now, further divide these two arrays into further halves, until the atomic units of the array is reached and further division is not possible.
+●	After dividing the array into smallest units, start merging the elements again based on comparison of size of elements
+●	Firstly, compare the element for each list and then combine them into another list in a sorted manner.
+
+*/
+
+//Code
+public class Merge_Sort {
+    
+
+        void merge(int arr[], int left, int mid, int right) {
+      
+          int len1 = mid - left + 1;
+          int len2 = right - mid;
+      
+          int leftArr[] = new int[len1];
+          int rightArr[] = new int[len2];
+      
+          for (int i = 0; i < len1; i++)
+            leftArr[i] = arr[left + i];
+          for (int j = 0; j < len2; j++)
+            rightArr[j] = arr[mid + 1 + j];
+      
+          int i, j, k;
+          i = 0;
+          j = 0;
+          k = left;
+      
+          while (i < len1 && j < len2) {
+            if (leftArr[i] <= rightArr[j]) {
+              arr[k] = leftArr[i];
+              i++;
+            } else {
+              arr[k] = rightArr[j];
+              j++;
+            }
+            k++;
+          }
+      
+          while (i < len1) {
+            arr[k] = leftArr[i];
+            i++;
+            k++;
+          }
+      
+          while (j < len2) {
+            arr[k] = rightArr[j];
+            j++;
+            k++;
+          }
+        }
+      
+        void mergeSort(int arr[], int start, int right) {
+          if (start < right) {
+      
+            int mid = (start + right) / 2;
+      
+            mergeSort(arr, start, mid);
+            mergeSort(arr, mid + 1, right);
+      
+            merge(arr, start, mid, right);
+          }
+        }
+      
+        static void display(int arr[]) {
+          int n = arr.length;
+          for (int i = 0; i < n; ++i)
+            System.out.print(arr[i] + " ");
+          System.out.println();
+        }
+      
+        public static void main(String args[]) {
+          int arr[] = { 600, 500, 1200, 700, 900, 100 };
+      
+          Merge_Sort ob = new Merge_Sort();
+          
+          System.out.println("\n\noriginal array");
+          display(arr);    
+          
+          ob.mergeSort(arr, 0, arr.length - 1);
+      
+          System.out.println("\n\nsorted array");
+          display(arr);
+        }
+      }
+      
+
+
+ 
